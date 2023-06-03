@@ -18,3 +18,8 @@ jobs:
     - name: Formatting code with black
       run: |
         black src
+    - name: Commiting changes
+      run: |
+        git add .
+        git commit -m "Black format"
+        git push
