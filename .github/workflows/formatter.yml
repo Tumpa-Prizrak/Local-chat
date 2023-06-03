@@ -28,4 +28,4 @@ jobs:
         title: '[Auto] Black format'
         labels: auto
         milestone: 0
-        branch: main
+        branch: auto-generated
