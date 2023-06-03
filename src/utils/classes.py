@@ -31,6 +31,8 @@ class User(JsonSerializable):
     def __eq__(self, value: object) -> bool:
         print("__eq__")
         return self.id == value.id if isinstance(value, User) else False
+
+
 class Event(JsonSerializable):
     def __init__(self, event: str, id: int, timestamp: int, **kwargs):
         self.event = event
