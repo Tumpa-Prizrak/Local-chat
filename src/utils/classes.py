@@ -1,4 +1,4 @@
-import randomise
+from src.utils import randomise
 from abc import ABC, abstractmethod
 
 class JsonSerializable(ABC):
@@ -25,6 +25,10 @@ class User(JsonSerializable):
             d["token"] = self.token
         
         return d
+    
+    def __eq__(self, value: object) -> bool:
+        print("__eq__")
+        return self.id == value.id if isinstance(value, User) else False
 
 
 class Event(JsonSerializable):
