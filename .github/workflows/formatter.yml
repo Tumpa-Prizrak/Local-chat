@@ -20,6 +20,8 @@ jobs:
         black src
     - name: Commiting changes
       run: |
+        git config user.email "zgamesudio@gmail.com"
+        git config user.name "Github actions"
         git add .
         git commit -m "Black format"
         git push
