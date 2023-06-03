@@ -18,10 +18,14 @@ jobs:
     - name: Formatting code with black
       run: |
         black src
-    - name: Commiting changes
-      run: |
-        git config user.email "zgamesudio@gmail.com"
-        git config user.name "Github actions"
-        git add .
-        git commit -m "Black format"
-        git push
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v5
+      with:
+        commit-message: Black formated
+        committer: Auto-Tumpa <zgamesudio@gmail.com>
+        body: |
+          Auto format using black
+        title: '[Auto] Black format'
+        labels: auto
+        milestone: 0
+        branch: main
