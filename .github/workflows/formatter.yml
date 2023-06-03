@@ -17,4 +17,4 @@ jobs:
         pip install -r requerements.txt
     - name: Formatting code with black
       run: |
-        black 
+        black src
