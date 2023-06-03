@@ -7,6 +7,7 @@ app = FastAPI()
 users = list()
 events = dict()
 
+
 @app.post("/join")
 def join(json_row: models.JoinInfo):
     print(users)
@@ -24,24 +25,22 @@ def join(json_row: models.JoinInfo):
                 break
 
     events[user.token] = list()
-    
-    return JSONResponse(content={
-        "token": user.token
-    }, status_code=status_code)
+
+    return JSONResponse(content={"token": user.token}, status_code=status_code)
+
 
 @app.get("/events")
 def get_events(json_row: models.Token):
     token: str = jsonable_encoder(json_row)["token"]
-    
+
     try:
         answer = list(map(lambda x: x.to_json(), events[token]))
         events[token].clear()
     except KeyError:
         return Response(status_code=401)
-    
-    return JSONResponse(content={
-        "events": answer
-    })
+
+    return JSONResponse(content={"events": answer})
+
 
 @app.post("/message")
 def send_message(json_row: models.Message):
