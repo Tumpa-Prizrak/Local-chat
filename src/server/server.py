@@ -56,13 +56,16 @@ def join(json_row: models.JoinInfo):
 
     return JSONResponse(content={"token": user.token}, status_code=status_code)
 
+
 @app.post("/message")
 def send_message(json_row: models.Message):
     json_data = jsonable_encoder(json_row)
     del json_data["id"]
 
     try:
-        utils.add_events(events, "message", dict(**json_data, **tokens[json_data["token"]].to_json()))  # TODO Union this shit normaly
+        utils.add_events(
+            events, "message", dict(**json_data, **tokens[json_data["token"]].to_json())
+        )  # TODO Union this shit normaly
     except KeyError:
         return Response(status_code=401)
 
