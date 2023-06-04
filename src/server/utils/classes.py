@@ -1,4 +1,4 @@
-from src.utils import randomise
+from utils import randomise
 from abc import ABC, abstractmethod
 
 

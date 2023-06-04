@@ -14,5 +14,5 @@ class Token(BaseModel):
     token: str
 
 
-class Message(JoinInfo):
+class Message(Token, Snowflake):
     message: str

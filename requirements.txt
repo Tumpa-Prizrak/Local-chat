@@ -1,3 +1,4 @@
 requests==2.31.0
 black==23.3.0
 fastapi==0.95.2
+scapy==2.5.0
