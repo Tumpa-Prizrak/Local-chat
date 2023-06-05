@@ -60,7 +60,8 @@ def join(json_row: models.JoinInfo):
 @app.post("/message")
 def send_message(json_row: models.Message):
     json_data = jsonable_encoder(json_row)
-    del json_data["id"]
+    print(json_data)
+    print(tokens[json_data["token"]].to_json())
 
     try:
         utils.add_events(

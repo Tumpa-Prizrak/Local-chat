@@ -1,5 +1,5 @@
 import requests as r
-from .utils import networking
+from utils import networking
 import colorama
 from cache import cache
 from utils import utils
@@ -22,6 +22,7 @@ if (username := cache.from_cache("username")) is None:
 
 @utils.count
 def connect():
+    global base
     logger.info("Connecting to server...")
     if (base := networking.find_server(networking.scan())) is None:
         logger.error("Server is not found. Try again later")

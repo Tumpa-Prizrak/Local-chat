@@ -1,7 +1,7 @@
 import scapy.all as scapy
 import socket
 import requests as r
-from ..cache import cache
+from cache import cache
 
 
 def scan():
@@ -40,6 +40,9 @@ def find_server(ips: list[str]):
 
 def check_connection(ip: str) -> bool:
     try:
-        return r.get(rf"http://{ip}/isvalid").json().get("valid", False)
+        print(fr"http://{ip}/isvalid")
+        return r.get(fr"http://{ip}/isvalid").json().get("valid", False)
     except TimeoutError:
+        return False
+    except r.exceptions.JSONDecodeError:
         return False
