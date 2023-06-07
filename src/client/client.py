@@ -24,16 +24,16 @@ if (username := cache.from_cache("username")) is None:
 def connect():
     """
     Подключается к серверу.
-    
+
     Параметры:
     Нет
-    
+
     Функциональность:
     Сканирует сеть в поисках сервера.
     Если сервер не найден, выводит сообщение об ошибке и завершает работу.
     Если сервер найден, сохраняет его IP-адрес в глобальной переменной base.
     """
-    
+
     global base
     logger.info("Connecting to server...")
     if (base := networking.find_server(networking.scan())) is None:
@@ -49,16 +49,16 @@ logger.info(f"Done in {connect()} seconds...")
 def join():
     """
     Присоединяется к серверу.
-    
+
     Параметры:
     Нет
-    
+
     Функциональность:
     Делает POST-запрос к /join на сервере с указанием id, username и timestamp.
     Получает токен доступа к серверу из ответа.
     Если произошла ошибка TimeoutError, выводит сообщение об ошибке и завершает работу.
     """
-    
+
     logger.info("Joining...")
     try:
         request = r.post(
@@ -78,16 +78,16 @@ logger.info(f"Joined in {join()} seconds...")
 def users():
     """
     Выводит список подключенных пользователей.
-    
-    Параметры: 
+
+    Параметры:
     Нет
-    
+
     Функциональность:
     Делает GET-запрос к /users на сервере.
     Получает список подключенных пользователей в ответе.
     Выводит имя пользователя и id для каждого подключенного пользователя.
     """
-    
+
     request = r.get(f"{base}/users")
     print("Loggined users:")
     for user in request.json()["users"]:
