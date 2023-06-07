@@ -77,12 +77,15 @@ def from_timestamp(timestamp: int) -> str:
     return date.strftime("%H:%M")
 
 
-
 def print_event(event: dict) -> None:
-    match (event.get('event')):
+    match (event.get("event")):
         case "join":
-            logger.info(f"[{from_timestamp(event.get('timestamp'))}] User {event.get('username')} (ID: {event.get('id')}) joined")
+            logger.info(
+                f"[{from_timestamp(event.get('timestamp'))}] User {event.get('username')} (ID: {event.get('id')}) joined"
+            )
         case "message":
-            print(f"[{from_timestamp(event.get('timestamp'))}] {event.get('username')}: {event.get('message')}")
+            print(
+                f"[{from_timestamp(event.get('timestamp'))}] {event.get('username')}: {event.get('message')}"
+            )
         case _:
             logger.error(f"Event {event.get('event')} is unknown")

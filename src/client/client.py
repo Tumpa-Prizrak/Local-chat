@@ -98,6 +98,8 @@ def users():
     print("Loggined users:")
     for user in request.json()["users"]:
         print(f"{user['username']} (id: {user['id']})")
+
+
 users()
 
 
@@ -105,24 +107,26 @@ def send_message():
     while threads_active:
         with suppress(EOFError):
             if line := input():
-                r.post(f"{base}/message", json={
-                    "id": userid,
-                    "timestamp": utils.timestamp(),
-                    "token": token,
-                    "message": line
-                })
+                r.post(
+                    f"{base}/message",
+                    json={
+                        "id": userid,
+                        "timestamp": utils.timestamp(),
+                        "token": token,
+                        "message": line,
+                    },
+                )
 
 
 def get_events():
     global threads_active
     while threads_active:
-        spis = r.get(f"{base}/events", json={
-            "token": token
-        }).json().get("events")
+        spis = r.get(f"{base}/events", json={"token": token}).json().get("events")
 
         for event in spis:
             utils.print_event(event)
         sleep(5)
+
 
 send_message_thread = threading.Thread(target=send_message)
 get_events_thread = threading.Thread(target=get_events)
