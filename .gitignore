@@ -148,3 +148,4 @@ cython_debug/
 .vscode/
 *.legacy
 *.cac
+test/
