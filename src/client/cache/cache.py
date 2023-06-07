@@ -39,7 +39,7 @@ def read_from_cache(id: str):
     """
     cache_dir = "cache"
     if not os.path.exists(cache_dir):
-        return None
+        return ""
 
     file_path = os.path.join(cache_dir, f"{id}.cac")
 

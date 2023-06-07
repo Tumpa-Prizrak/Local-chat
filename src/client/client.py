@@ -17,7 +17,7 @@ userid = networking.get_my_ip().split(".")[-1]
 threads_active = True
 
 
-if (username := cache.read_from_cache("username")) is None:
+if (username := cache.read_from_cache("username")) == "":
     username = input(f"{colorama.Fore.YELLOW}Enter your username: ")
     cache.write_to_cache("username", username)
     utils.clear_console()
