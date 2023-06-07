@@ -124,13 +124,15 @@ def send_message(json_row: models.Message):
     """
 
     json_data = jsonable_encoder(json_row)
-    print(json_data)
-    print(tokens[json_data["token"]].to_json())
+    username = tokens[json_data["token"]].to_json().get('username')
 
     try:
         utils.add_events(
-            events, "message", dict(**json_data, **tokens[json_data["token"]].to_json())
-        )  # TODO Union this shit normaly
+            events, "message", dict(
+                username=username,
+                **json_data
+            )
+        )
     except KeyError:
         return Response(status_code=401)
 

@@ -1,6 +1,7 @@
 from os import system
 import datetime
 import time
+from utils import logger
 
 
 def clear_console():
@@ -41,7 +42,7 @@ def count(func):
     return wrapper
 
 
-def timestamp(time: datetime.datetime = None) -> int:
+def timestamp(dt: datetime.datetime | None = None) -> int:
     """
     Получает timestamp (количество секунд с начала эпохи) для указанной даты и времени.
 
@@ -54,7 +55,34 @@ def timestamp(time: datetime.datetime = None) -> int:
     Возвращает полученный timestamp.
     """
 
-    if time is None:
-        time = datetime.datetime.now()
+    if dt is None:
+        dt = datetime.datetime.now()
 
-    return time.mktime(time.timetuple())
+    return time.mktime(dt.timetuple())  # type: ignore
+
+
+def from_timestamp(timestamp: int) -> str:
+    """
+    Преобразует timestamp (в секундах) в дату и время.
+
+    Параметры:
+    timestamp (int): Время в секундах.
+
+    Возвращает:
+    str: Дата и время в формате HH:MM.
+    """
+    from datetime import datetime
+
+    date = datetime.fromtimestamp(timestamp)
+    return date.strftime("%H:%M")
+
+
+
+def print_event(event: dict) -> None:
+    match (event.get('event')):
+        case "join":
+            logger.info(f"[{from_timestamp(event.get('timestamp'))}] User {event.get('username')} (ID: {event.get('id')}) joined")
+        case "message":
+            print(f"[{from_timestamp(event.get('timestamp'))}] {event.get('username')}: {event.get('message')}")
+        case _:
+            logger.error(f"Event {event.get('event')} is unknown")

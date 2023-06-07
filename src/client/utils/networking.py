@@ -67,13 +67,13 @@ def find_server(ips: list[str]):
     Если сервер не найден по ни одному IP-адресу, возвращает None.
     """
 
-    if (ip := cache.from_cache("server")) is not None:
+    if (ip := cache.read_from_cache("server")) is not None:
         if check_connection(ip):
             return ip
 
     for ip in ips:
         if check_connection(ip):
-            cache.to_cache("server", ip)
+            cache.write_to_cache("server", ip)
             return ip
 
     return None
@@ -96,7 +96,5 @@ def check_connection(ip: str) -> bool:
     try:
         print(rf"http://{ip}/isvalid")
         return r.get(rf"http://{ip}/isvalid").json().get("valid", False)
-    except TimeoutError:
-        return False
-    except r.exceptions.JSONDecodeError:
+    except (TimeoutError, r.exceptions.JSONDecodeError, r.exceptions.ConnectionError):
         return False
