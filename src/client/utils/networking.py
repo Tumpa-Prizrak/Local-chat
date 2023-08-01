@@ -6,16 +6,16 @@ from cache import cache
 
 def scan():
     """
-    Сканирует сеть и возвращает список IP-адресов устройств.
+    Scans the network and returns a list of device IP addresses.
 
-    Параметры:
-    Нет
+    Parameters:
+    No
 
-    Функциональность:
-    Создает ARP-запрос для сети, к которой принадлежит IP-адрес клиента.
-    Отправляет широковещательный ARP-запрос и получает ответы.
-    Извлекает IP-адреса устройств из полученных ответов.
-    Возвращает список IP-адресов.
+    Functionality:
+    Creates an ARP request for the network to which the client IP address belongs.
+    Sends a broadcast ARP request and receives responses.
+    Extracts device IP addresses from the received responses.
+    Returns a list of IP addresses.
     """
     arp_request = scapy.ARP(pdst=f"{get_my_ip()}/24")
     broadcast = scapy.Ether(dst="ff:ff:ff:ff:ff:ff")
@@ -28,17 +28,17 @@ def scan():
 
 def get_my_ip():
     """
-    Получает IP-адрес клиента.
+    Gets the IP address of the client.
 
-    Параметры:
-    Нет
+    Parameters:
+    No
 
-    Функциональность:
-    Создает UDP-сокет.
-    Подключается к 8.8.8.8:80 для получения собственного IP-адреса.
-    Извлекает IP-адрес из информации о сокете.
-    Закрывает сокет.
-    Возвращает IP-адрес клиента.
+    Functionality:
+    Creates a UDP socket.
+    Connects to 8.8.8.8.8:80 to obtain its own IP address.
+    Extracts the IP address from the socket information.
+    Closes the socket.
+    Returns the IP address of the client.
     """
 
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -53,18 +53,18 @@ def get_my_ip():
 
 def find_server(ips: list[str]):
     """
-    Ищет сервер среди списка IP-адресов.
+    Searches for a server among a list of IP addresses.
 
-    Параметры:
-    ips (list[str]): Список IP-адресов для проверки.
+    Parameters:
+    ips (list[str]): A list of IP addresses to check.
 
-    Функциональность:
-    Проверяет, есть ли в кэше сохраненный IP-адрес сервера. Если есть и сервер доступен, возвращает его IP-адрес.
+    Functionality:
+    Checks if there is a stored IP address of the server in the cache. If there is and the server is available, returns its IP address.
 
-    Если в кэше нет IP-адреса сервера или он недоступен, перебирает IP-адреса из списка.
-    Если сервер с доступен по какому-либо IP-адресу, сохраняет его в кэше и возвращает.
+    If there is no IP address of the server in the cache or it is unavailable, it tries IP addresses from the list.
+    If a server is available at any IP address, stores it in the cache and returns it.
 
-    Если сервер не найден по ни одному IP-адресу, возвращает None.
+    If the server is not found at any IP address, returns None.
     """
 
     if (ip := cache.read_from_cache("server")) != "":
@@ -81,16 +81,16 @@ def find_server(ips: list[str]):
 
 def check_connection(ip: str) -> bool:
     """
-    Проверяет доступность сервера по IP-адресу.
+    Checks the availability of the server by IP address.
 
-    Параметры:
-    ip (str): IP-адрес сервера для проверки.
+    Parameters:
+    ip (str): The IP address of the server to check.
 
-    Функциональность:
-    Пытается сделать GET-запрос к /isvalid на сервере по указанному IP-адресу.
-    Если запрос прошел успешно и ответ содержит {"valid": True}, возвращает True.
-    Если произошла ошибка TimeoutError, возвращает False.
-    Если ответ невозможно декодировать из JSON, возвращает False.
+    Functionality:
+    Attempts to make a GET request to /isvalid on the server at the specified IP address.
+    If the request succeeds and the response contains {"valid": True}, returns True.
+    If a TimeoutError occurred, returns False.
+    If the response cannot be decoded from JSON, returns False.
     """
 
     try:

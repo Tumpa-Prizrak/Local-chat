@@ -6,15 +6,15 @@ from utils import logger
 
 def clear_console():
     """
-    Очищает консоль.
+    Clears the console.
 
-    Параметры:
-    Нет
+    Parameters:
+    No
 
-    Функциональность:
-    Пытается очистить консоль командой "cls" для Windows.
-    Если команда "cls" не сработала (вернула код отличный от 0),
-    выполняет очистку консоли командой "clear" для Linux/Mac.
+    Functionality:
+    Attempts to clear the console with the "cls" command for Windows.
+    If the "cls" command fails (returns a code other than 0),
+    clears the console with the "clear" command for Linux/Mac.
     """
     if system("cls") != 0:
         system("clear")
@@ -22,16 +22,13 @@ def clear_console():
 
 def count(func):
     """
-    Декоратор для подсчета времени выполнения функции.
+    A decorator for counting the execution time of a function.
 
-    Параметры:
-    func (function): Декорируемая функция.
-
-    Функциональность:
-    Запоминает время начала выполнения функции.
-    Вызывает декорируемую функцию.
-    Вычисляет разницу между временем окончания и начала выполнения.
-    Возвращает это время.
+    Functionality:
+    Remembers the start time of the function execution.
+    Calls the function.
+    Calculates the difference between the end time and the start time of execution.
+    Returns this time.
     """
 
     def wrapper():
@@ -44,15 +41,15 @@ def count(func):
 
 def timestamp(dt: datetime.datetime | None = None) -> int:
     """
-    Получает timestamp (количество секунд с начала эпохи) для указанной даты и времени.
+    Gets the timestamp (number of seconds since the beginning of the epoch) for the specified date and time.
 
-    Параметры:
-    time (datetime.datetime): Дата и время для получения timestamp. По умолчанию берется текущая дата и время.
+    Parameters:
+    time (datetime.datetime): The date and time to get the timestamp. The default is to take the current date and time.
 
-    Функциональность:
-    Если параметр time не указан, берет текущую дату и время.
-    Получает timestamp для указанной даты и времени с помощью метода .mktime().
-    Возвращает полученный timestamp.
+    Functionality:
+    If no time parameter is specified, takes the current date and time.
+    Gets the timestamp for the specified date and time using the .mktime() method.
+    Returns the obtained timestamp.
     """
 
     if dt is None:
@@ -63,13 +60,13 @@ def timestamp(dt: datetime.datetime | None = None) -> int:
 
 def from_timestamp(timestamp: int) -> str:
     """
-    Преобразует timestamp (в секундах) в дату и время.
+    Converts timestamp (in seconds) to date and time.
 
-    Параметры:
-    timestamp (int): Время в секундах.
+    Parameters:
+    timestamp (int): The time in seconds.
 
-    Возвращает:
-    str: Дата и время в формате HH:MM.
+    Returns:
+    str: Date and time in HH:MM format.
     """
     from datetime import datetime
 
@@ -78,6 +75,9 @@ def from_timestamp(timestamp: int) -> str:
 
 
 def print_event(event: dict) -> None:
+    """
+    Print an event dictionary in a human-readable format.
+    """
     match (event.get("event")):
         case "join":
             logger.info(

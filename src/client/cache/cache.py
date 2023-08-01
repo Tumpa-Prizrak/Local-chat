@@ -3,11 +3,11 @@ import os
 
 def write_to_cache(id: str, data: str):
     """
-    Записывает данные в кэш по идентификатору.
+    Writes data to the cache by identifier.
 
-    Параметры:
-    id (str): Идентификатор записи в кэше.
-    data (str): Данные для записи в кэш.
+    Parameters:
+    id (str): The identifier of the entry in the cache.
+    data (str): The data to write to the cache.
     """
     if not isinstance(id, str) or not isinstance(data, str):
         raise TypeError("Аргументы должны быть строками!")
@@ -27,21 +27,21 @@ def write_to_cache(id: str, data: str):
 
 def read_from_cache(id: str):
     """
-    Извлекает данные из кэша по идентификатору.
+    Retrieves data from cache by identifier.
 
-    Параметры:
-    id (str): Идентификатор записи в кэше.
+    Parameters:
+    id (str): The identifier of the entry in the cache.
 
-    Функциональность:
-    Пытается открыть файл с именем {id}.cac и прочитать его.
-    Если файл найден, данные декодируются из байтов в строку и возвращаются.
-    Если файл не найден, возвращается None.
+    Functionality:
+    Tries to open a file named {id}.data and read it.
+    If the file is found, the data is decoded from bytes to a string and returned.
+    If the file is not found, None is returned.
     """
     cache_dir = "cache"
     if not os.path.exists(cache_dir):
         return ""
 
-    file_path = os.path.join(cache_dir, f"{id}.cac")
+    file_path = os.path.join(cache_dir, f"{id}.data")
 
     try:
         with open(file_path, "rb") as f:

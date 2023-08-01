@@ -3,16 +3,16 @@ from utils import classes
 
 def add_events(events: dict, event: str, json_data: dict):
     """
-    Добавляет событие в список событий.
+    Adds an event to the event list.
 
-    Параметры:
-    events (dict): Словарь событий, ключ - токен пользователя, значение - список событий.
-    event (str): Тип добавляемого события (join, message и т.д.).
-    json_data (dict): Данные о событии.
+    Parameters:
+    events (dict): Dictionary of events, key is the user token, value is the list of events.
+    event (str): The type of event to add (join, message, etc.).
+    json_data (dict): Data about the event.
 
-    Функциональность:
-    Удаляет поле "token" из json_data, если оно присутствует.
-    Добавляет новое событие типа event в список событий для каждого пользователя в events.
+    Functionality:
+    Removes the "token" field from json_data, if present.
+    Adds a new event of type event to the event list for each user in events.
     """
 
     if "token" in json_data:

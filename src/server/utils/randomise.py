@@ -4,16 +4,16 @@ import string
 valid = string.ascii_letters + string.digits
 
 
-def generate_token(lenth: int = 5) -> str:
+def generate_token(length: int = 5) -> str:
     """
-    Генерирует случайный токен доступа.
+    Generates a random access token.
 
-    Параметры:
-    lenth (int): Длина генерируемого токена. По умолчанию равна 5.
+    Parameters:
+    length (int): The length of the token to be generated. Defaults to 5.
 
-    Функциональность:
-    Генерирует случайную строку символов длиной lenth из букв латинского алфавита и цифр.
-    Возвращает сгенерированный токен.
+    Functionality:
+    Generates a random character string of length from Latin alphabet letters and numbers.
+    Returns the generated token.
     """
 
-    return "".join(random.choices(valid, k=lenth))
+    return "".join(random.choices(valid, k=length))

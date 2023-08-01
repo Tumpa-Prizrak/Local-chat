@@ -4,14 +4,14 @@ from abc import ABC, abstractmethod
 
 class JsonSerializable(ABC):
     """
-    Абстрактный класс для сериализации в JSON.
+    An abstract class for serialization to JSON.
 
-    Параметры:
-    Нет
+    Parameters:
+    No
 
-    Функциональность:
-    Определяет абстрактный метод to_json() для сериализации в JSON.
-    Определяет классовый метод from_json() для десериализации из JSON.
+    Functionality:
+    Defines an abstract method to_json() for serialization to JSON.
+    Defines a class method from_json() for deserialization from JSON.
     """
 
     @classmethod
@@ -25,21 +25,21 @@ class JsonSerializable(ABC):
 
 class User(JsonSerializable):
     """
-    Класс пользователя.
+    User Class.
 
-    Параметры:
-    id (int): ID пользователя.
-    username (str): Имя пользователя.
+    Parameters:
+    id (int): user ID.
+    username (str): The username of the user.
 
-    Функциональность:
-    Создает экземпляр пользователя с указанным ID и именем.
-    Генерирует уникальный токен доступа для пользователя.
-    Определяет метод to_json() для сериализации в JSON. По умолчанию не включает токен в JSON, но может включить его при safe=False.
-    Определяет метод __eq__() для сравнения экземпляров пользователя. Сравнивает по ID.
+    Functionality:
+    Creates a user instance with the specified user ID and username.
+    Generates a unique access token for the user.
+    Defines a to_json() method for serialization to JSON. By default, does not include the token in JSON, but can include it when safe=False.
+    Defines the __eq__() method to compare user instances. Compares by ID.
     """
 
-    def __init__(self, id: int, username: str):
-        self.id = id
+    def __init__(self, userid: int, username: str):
+        self.id = userid
         self.username = username
         self.token = randomise.generate_token()
 
@@ -60,22 +60,22 @@ class User(JsonSerializable):
 
 class Event(JsonSerializable):
     """
-    Класс события.
+    Event Class.
 
-    Параметры:
-    event (str): Тип события (join, message и т.д.).
-    id (int): ID пользователя, совершившего событие.
-    timestamp (int): Временная метка события.
-    **kwargs: Дополнительная информация о событии.
+    Parameters:
+    event (str): Type of event (join, message, etc.).
+    id (int): ID of the user who committed the event.
+    timestamp (int): The timestamp of the event.
+    **kwargs: Additional information about the event.
 
-    Функциональность:
-    Создает экземпляр события с указанными параметрами.
-    Определяет метод to_json() для сериализации в JSON. Включает в JSON тип события, ID пользователя, временную метку и дополнительную информацию.
+    Functionality:
+    Creates an event instance with the specified parameters.
+    Defines the to_json() method for serialization to JSON. Includes the event type, user ID, timestamp, and additional information in JSON.
     """
 
-    def __init__(self, event: str, id: int, timestamp: int, **kwargs):
+    def __init__(self, event: str, event_id: int, timestamp: int, **kwargs):
         self.event = event
-        self.id = id
+        self.id = event_id
         self._timestamp = timestamp
         self.info = kwargs
 

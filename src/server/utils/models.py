@@ -3,14 +3,14 @@ from pydantic import BaseModel
 
 class Snowflake(BaseModel):
     """
-    Класс Snowflake - базовая модель с ID и временной меткой.
+    The Snowflake class is a base model with an ID and a timestamp.
 
-    Параметры:
-    id (int): Уникальный ID.
-    timestamp (int): Временная метка в секундах.
+    Parameters:
+    id (int): Unique ID.
+    timestamp (int): The timestamp in seconds.
 
-    Функциональность:
-    Определяет базовую структуру модели с ID и временной меткой.
+    Functionality:
+    Defines the basic model structure with ID and timestamp.
     """
 
     id: int
@@ -19,14 +19,14 @@ class Snowflake(BaseModel):
 
 class JoinInfo(Snowflake):
     """
-    Класс JoinInfo - модель для передачи информации о подключении пользователя.
+    The JoinInfo class is a model for passing information about a user's connection.
 
-    Параметры:
-    username (str): Имя пользователя.
+    Parameters:
+    username (str): The username of the user.
 
-    Функциональность:
-    Наследуется от Snowflake.
-    Добавляет поле username для хранения имени пользователя.
+    Functionality:
+    Inherited from Snowflake.
+    Adds a username field to store the username.
     """
 
     username: str
@@ -34,13 +34,13 @@ class JoinInfo(Snowflake):
 
 class Token(BaseModel):
     """
-    Класс Token - модель для передачи токена доступа.
+    Token class - a model for passing an access token.
 
-    Параметры:
-    token (str): Токен доступа.
+    Parameters:
+    token (str): The access token.
 
-    Функциональность:
-    Определяет структуру модели для передачи токена доступа.
+    Functionality:
+    Defines the structure of the model for passing an access token.
     """
 
     token: str
@@ -48,14 +48,14 @@ class Token(BaseModel):
 
 class Message(Token, Snowflake):
     """
-    Класс Message - модель для передачи сообщения.
+    The Message class is a model for sending a message.
 
-    Параметры:
-    message (str): Текст сообщения.
+    Parameters:
+    message (str): The text of the message.
 
-    Функциональность:
-    Наследуется от Token и Snowflake.
-    Добавляет поле message для хранения текста сообщения.
+    Functionality:
+    Inherited from Token and Snowflake.
+    Adds a message field to store the message text.
     """
 
     message: str

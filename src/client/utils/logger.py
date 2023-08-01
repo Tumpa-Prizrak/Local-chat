@@ -4,29 +4,29 @@ import colorama
 
 def log(code: str, color: str, message: str):
     """
-    Выводит сообщение с указанным цветом и кодом.
+    Outputs a message with the specified color and code.
 
-    Параметры:
-    code (str): Код сообщения (например, "info" или "error").
-    color (str): Цвет сообщения (например, colorama.Fore.RED).
-    message (str): Текст сообщения.
+    Parameters:
+    code (str): The code of the message (for example, "info" or "error").
+    color (str): The color of the message (for example, colorama.Fore.RED).
+    message (str): The text of the message.
 
-    Функциональность:
-    Форматирует сообщение в виде "[КОД] Сообщение" и выводит его с указанным цветом.
+    Functionality:
+    Formats the message as "[CODE] Message" and outputs it with the specified color.
     """
     print(f"{color}[{code.upper()}] {message}")
 
 
 def error(message: str):
     """
-    Выводит сообщение об ошибке красным цветом.
+    Outputs an error message in red color.
 
-    Параметры:
-    message (str): Текст сообщения об ошибке.
+    Parameters:
+    message (str): The text of the error message.
 
-    Функциональность:
-    Вызывает log() с кодом "error" и красным цветом (colorama.Fore.RED) для вывода
-    сообщения об ошибке.
+    Functionality:
+    Calls log() with the code "error" and a red color (colorama.Fore.RED) to output an
+    error message.
     """
 
     log(color=colorama.Fore.RED, code="error", message=message)
@@ -34,13 +34,13 @@ def error(message: str):
 
 def info(message: str):
     """
-    Выводит информационное сообщение зеленым цветом.
+    Outputs an informational message in green color.
 
-    Параметры:
-    message (str): Текст информационного сообщения.
+    Parameters:
+    message (str): The text of the informational message.
 
-    Функциональность:
-    Вызывает log() с кодом "info" и зеленым цветом (colorama.Fore.GREEN) для вывода
-    информационного сообщения.
+    Functionality:
+    Calls log() with the code "info" and a green color (colorama.Fore.GREEN) to output an
+    information message.
     """
     log(color=colorama.Fore.GREEN, code="info", message=message)

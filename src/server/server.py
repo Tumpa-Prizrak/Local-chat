@@ -12,16 +12,16 @@ tokens: dict[classes.User] = dict()
 @app.get("/events")
 def get_events(json_row: models.Token):
     """
-    Возвращает список событий для пользователя.
+    Returns a list of events for the user.
 
-    Параметры:
-    json_row (models.Token): Модель токена доступа.
+    Parameters:
+    json_row (models.Token): The model of the access token.
 
-    Функциональность:
-    Извлекает токен доступа из json_row.
-    Пытается получить список событий для пользователя по токену из events.
-    Если список событий найден, очищает его и возвращает в ответе.
-    Если список событий не найден по токену, возвращает ответ со статусом 401.
+    Functionality:
+    Retrieves an access token from json_row.
+    Tries to retrieve a list of events for the user by token from events.
+    If the event list is found, clears it and returns it in the response.
+    If the event list is not found by token, returns a response with status 401.
     """
 
     token: str = jsonable_encoder(json_row)["token"]
@@ -39,14 +39,14 @@ def get_events(json_row: models.Token):
 @app.get("/users")
 def get_users():
     """
-    Возвращает список пользователей.
+    Returns a list of users.
 
-    Параметры:
-    Нет
+    Parameters:
+    No
 
-    Функциональность:
-    Сериализует всех пользователей в JSON с помощью их метода to_json().
-    Возвращает список сериализованных пользователей в ответе.
+    Functionality:
+    Serializes all users into JSON using their to_json() method.
+    Returns a list of serialized users in the response.
     """
 
     return JSONResponse(content={"users": list(map(lambda x: x.to_json(), users))})
@@ -55,13 +55,13 @@ def get_users():
 @app.get("/isvalid")
 def get_users():
     """
-    Проверяет доступность сервера.
+    Checks the availability of the server.
 
-    Параметры:
-    Нет
+    Parameters:
+    No
 
-    Функциональность:
-    Возвращает ответ со статусом 200 и JSON {"valid": True} для проверки доступности сервера.
+    Functionality:
+    Returns a response with status 200 and JSON {"valid": True} to verify server availability.
     """
 
     return JSONResponse(content={"valid": True})
@@ -70,19 +70,19 @@ def get_users():
 @app.post("/join")
 def join(json_row: models.JoinInfo):
     """
-    Добавляет пользователя.
+    Adds a user.
 
-    Параметры:
-    json_row (models.JoinInfo): Модель с информацией о подключении пользователя.
+    Parameters:
+    json_row (models.JoinInfo): Model with the user's join information.
 
-    Функциональность:
-    Извлекает данные о пользователе из json_row.
-    Создает экземпляр пользователя.
-    Если пользователь еще не добавлен, добавляет его в список пользователей и словарь токенов, возвращает статус 201.
-    Если пользователь уже добавлен, возвращает его токен и статус 200.
-    Создает пустой список событий для пользователя.
-    Добавляет событие "join" для пользователя.
-    Возвращает токен пользователя в ответе.
+    Functionality:
+    Extracts user data from json_row.
+    Creates an instance of the user.
+    If the user has not yet been added, adds it to the user list and token dictionary, returns status 201.
+    If the user has already been added, returns its token and status 200.
+    Creates an empty event list for the user.
+    Adds a "join" event for the user.
+    Returns the user's token in the response.
     """
 
     print(users)
@@ -110,17 +110,17 @@ def join(json_row: models.JoinInfo):
 @app.post("/message")
 def send_message(json_row: models.Message):
     """
-    Отправляет сообщение.
+    Sends a message.
 
-    Параметры:
-    json_row (models.Message): Модель сообщения.
+    Parameters:
+    json_row (models.Message): The model of the message.
 
-    Функциональность:
-    Извлекает данные о сообщении из json_row.
-    Пытается получить данные о пользователе, отправившем сообщение, из tokens по токену.
-    Если пользователь найден, добавляет событие "message" с данными о сообщении и пользователе.
-    Если пользователь не найден по токену, возвращает ответ со статусом 401.
-    Возвращает ответ со статусом 201 в случае успеха.
+    Functionality:
+    Retrieves message data from json_row.
+    Tries to retrieve data about the user who sent the message from tokens by token.
+    If the user is found, adds a "message" event with the message and user data.
+    If the user is not found by token, returns a response with status 401.
+    Returns a response with status 201 if successful.
     """
 
     json_data = jsonable_encoder(json_row)
