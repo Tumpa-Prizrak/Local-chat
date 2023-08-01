@@ -123,7 +123,9 @@ def get_events():
     """
     global threads_active
     while threads_active:
-        for event in r.get(f"{base}/events", json={"token": token}).json().get("events"):
+        for event in (
+            r.get(f"{base}/events", json={"token": token}).json().get("events")
+        ):
             utils.print_event(event)
         sleep(5)
 
