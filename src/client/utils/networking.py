@@ -67,7 +67,7 @@ def find_server(ips: list[str]):
     If the server is not found at any IP address, returns None.
     """
 
-    if (ip := cache.read_from_cache("server")) != "":
+    if not (ip := cache.read_from_cache("server")):
         if check_connection(ip):
             return ip
 

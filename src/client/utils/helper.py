@@ -81,11 +81,11 @@ def print_event(event: dict) -> None:
     match (event.get("event")):
         case "join":
             logger.info(
-                f"[{from_timestamp(event.get('timestamp'))}] User {event.get('username')} (ID: {event.get('id')}) joined"
+                f"[{from_timestamp(event.get('timestamp'))}] User {event.get('username')} (ID: {event.get('id')}) joined"  # type: ignore
             )
         case "message":
             print(
-                f"[{from_timestamp(event.get('timestamp'))}] {event.get('username')}: {event.get('message')}"
+                f"[{from_timestamp(event.get('timestamp'))}] {event.get('username')}: {event.get('message')}"  # type: ignore
             )
         case _:
             logger.error(f"Event {event.get('event')} is unknown")

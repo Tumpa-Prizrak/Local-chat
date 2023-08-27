@@ -1,4 +1,4 @@
-from utils import models, classes, utils
+from utils import models, classes, helper
 from fastapi import FastAPI
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse, Response
@@ -6,7 +6,7 @@ from fastapi.responses import JSONResponse, Response
 app = FastAPI()
 users = list()
 events = dict()
-tokens: dict[classes.User] = dict()
+tokens: dict[str, classes.User] = dict()
 
 
 @app.get("/events")
@@ -53,7 +53,7 @@ def get_users():
 
 
 @app.get("/isvalid")
-def get_users():
+def isvalid():
     """
     Checks the availability of the server.
 
@@ -102,7 +102,7 @@ def join(json_row: models.JoinInfo):
 
     events[user.token] = list()
 
-    utils.add_events(events, "join", json_data)
+    helper.add_events(events, "join", json_data)
 
     return JSONResponse(content={"token": user.token}, status_code=status_code)
 
@@ -127,7 +127,7 @@ def send_message(json_row: models.Message):
     username = tokens[json_data["token"]].to_json().get("username")
 
     try:
-        utils.add_events(events, "message", dict(username=username, **json_data))
+        helper.add_events(events, "message", dict(username=username, **json_data))
     except KeyError:
         return Response(status_code=401)
 

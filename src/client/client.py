@@ -3,14 +3,14 @@ import requests as r
 from utils import networking
 import colorama
 from cache import cache
-from utils import utils
+from utils import helper
 import sys
 from utils import logger
 import threading
 from time import sleep
 
 
-@utils.count
+@helper.count
 def connect():
     """
     Connects to the server.
@@ -34,7 +34,7 @@ def connect():
         base = f"http://{base}"
 
 
-@utils.count
+@helper.count
 def join():
     global token
     """
@@ -53,10 +53,11 @@ def join():
     try:
         request = r.post(
             f"{base}/join",
-            json={"id": userid, "timestamp": utils.timestamp(), "username": username},
+            json={"id": userid, "timestamp": helper.timestamp(), "username": username},
         )
         token = request.json()["token"]
-    except TimeoutError:
+    except Exception as e:
+        logger.error(str(e))
         logger.error("Coudn't connect to server. Exiting...")
         input()
         sys.exit(1)
@@ -101,7 +102,7 @@ def send_message():
                     f"{base}/message",
                     json={
                         "id": userid,
-                        "timestamp": utils.timestamp(),
+                        "timestamp": helper.timestamp(),
                         "token": token,
                         "message": line,
                     },
@@ -126,7 +127,7 @@ def get_events():
         for event in (
             r.get(f"{base}/events", json={"token": token}).json().get("events")
         ):
-            utils.print_event(event)
+            helper.print_event(event)
         sleep(5)
 
 
@@ -139,9 +140,10 @@ threads_active = True
 
 
 if (username := cache.read_from_cache("username")) == "":
+    print(f'"{username}"')
     username = input(f"{colorama.Fore.YELLOW}Enter your username: ")
     cache.write_to_cache("username", username)
-    utils.clear_console()
+    helper.clear_console()
 
 logger.info(f"Done in {connect()} seconds...")
 logger.info(f"Joined in {join()} seconds...")
