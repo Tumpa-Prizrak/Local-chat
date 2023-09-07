@@ -19,6 +19,7 @@ def handle_client(connection, address):
     print("Соединение с клиентом", address, "закрыто.")
     connection.close()
 
+
 # Основная функция сервера
 def main():
     # Ввод IP-адреса и порта для прослушивания
@@ -39,5 +40,5 @@ def main():
         threading.Thread(target=handle_client, args=(connection, address)).start()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

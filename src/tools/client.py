@@ -49,7 +49,11 @@ def scan():
     broadcast = scapy.Ether(dst="ff:ff:ff:ff:ff:ff")
 
     arp_request_broadcast = broadcast / arp_request
-    answered_list = [ip for i in scapy.srp(arp_request_broadcast, timeout=1, verbose=False) for ip in i]
+    answered_list = [
+        ip
+        for i in scapy.srp(arp_request_broadcast, timeout=1, verbose=False)
+        for ip in i
+    ]
 
     return list({element[1].psrc for element in answered_list})
 
