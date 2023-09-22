@@ -67,6 +67,7 @@ class Log:
 
     The _log() function handles printing to console and file.
     """
+
     @staticmethod
     def _log(*, level: ColoredText, msg: ColoredText):
         """
@@ -89,7 +90,10 @@ class Log:
 
     @staticmethod
     def error(msg: str):
-        Log._log(level=ColoredText(text="[ERROR]", color=c.Fore.RED), msg=ColoredText(text=msg))
+        Log._log(
+            level=ColoredText(text="[ERROR]", color=c.Fore.RED),
+            msg=ColoredText(text=msg),
+        )
 
     @staticmethod
     def warning(msg: str):
@@ -100,14 +104,21 @@ class Log:
 
     @staticmethod
     def info(msg: str):
-        Log._log(level=ColoredText(text="[INFO]", color=c.Fore.BLUE), msg=ColoredText(text=msg))
+        Log._log(
+            level=ColoredText(text="[INFO]", color=c.Fore.BLUE),
+            msg=ColoredText(text=msg),
+        )
 
     @staticmethod
     def log(msg: str):
-        Log._log(level=ColoredText(text="[LOG]", color=c.Fore.WHITE), msg=ColoredText(text=msg))
+        Log._log(
+            level=ColoredText(text="[LOG]", color=c.Fore.WHITE),
+            msg=ColoredText(text=msg),
+        )
 
     @staticmethod
     def debug(msg: str):
         Log._log(
-            level=ColoredText(text="[DEBUG]", color=c.Fore.GREEN), msg=ColoredText(text=msg)
+            level=ColoredText(text="[DEBUG]", color=c.Fore.GREEN),
+            msg=ColoredText(text=msg),
         )

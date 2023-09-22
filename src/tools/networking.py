@@ -80,7 +80,7 @@ def get_available_peers():
 
     def _scan_network():
         threads = []
-        base = '.'.join(get_my_ip().split('.')[:3])
+        base = ".".join(get_my_ip().split(".")[:3])
         for i in range(1, 255):
             ip = f"{base}.{i}"
             # print(ip)
@@ -151,5 +151,7 @@ def send_data(ip: str, name: str, command: str, *args):
     Sends the message over the socket.
     Closes the socket when done.
     """
-    with SocketWrapper(socket.AF_INET, socket.SOCK_STREAM, ip=ip, port=config.PORT) as s:
+    with SocketWrapper(
+        socket.AF_INET, socket.SOCK_STREAM, ip=ip, port=config.PORT
+    ) as s:
         s.send(f"{name} {command.upper()} {' '.join(args)}/e")

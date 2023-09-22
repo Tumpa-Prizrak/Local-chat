@@ -28,4 +28,6 @@ class Peer:
         Returns a list of messages that are in the messages list
         but not in the read_messages list.
         """
-        return [message for message in self.messages if message not in self.read_messages]
+        return [
+            message for message in self.messages if message not in self.read_messages
+        ]
