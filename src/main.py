@@ -1,6 +1,3 @@
-from src.tools import client, server
-import threading
+from src.parts import client
 
-ips = client.scan()
-print(ips)
-print(client.get_list_peers(ips))
+client.main()
